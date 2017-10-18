@@ -28,10 +28,10 @@ var ScrollLock = createClass({
       target.style.paddingRight = scrollbarWidth + "px";
     }
     target.style.overflowY = "hidden";
-
+    var self = this;
     target.addEventListener(
       "touchmove",
-      this.preventTouchMove,
+      self.preventTouchMove,
       listenerOptions
     ); // 2.
 
@@ -58,10 +58,10 @@ var ScrollLock = createClass({
       target.style.paddingRight = "";
     }
     target.style.overflowY = "";
-
+    var self = this;
     target.removeEventListener(
       "touchmove",
-      this.preventTouchMove,
+      self.preventTouchMove,
       listenerOptions
     );
 
