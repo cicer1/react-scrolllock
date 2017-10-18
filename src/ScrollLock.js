@@ -1,6 +1,6 @@
-const React = require("react");
-const PropTypes = require("prop-types");
-const createClass = require("create-react-class");
+var React = require("react");
+var PropTypes = require("prop-types");
+var createClass = require("create-react-class");
 
 /*
 	NOTES
@@ -10,22 +10,22 @@ const createClass = require("create-react-class");
 	3. Allow scroll on provided target.
 */
 
-const listenerOptions = { capture: false, passive: false };
-const ScrollLock = createClass({
+var listenerOptions = { capture: false, passive: false };
+var ScrollLock = createClass({
   propTypes: {
     scrollTarget: PropTypes.object,
     preventContentJumping: PropTypes.bool
   },
-  componentDidMount() {
+  componentDidMount: function() {
     if (!canUseDom()) return;
 
-    const scrollTarget = this.props.scrollTarget;
-    const target = document.body;
+    var scrollTarget = this.props.scrollTarget;
+    var target = document.body;
 
     if (this.props.preventContentJumping) {
-      const scrollbarWidth = window.innerWidth - document.body.clientWidth; // 1.
+      var scrollbarWidth = window.innerWidth - document.body.clientWidth; // 1.
 
-      target.style.paddingRight = `${scrollbarWidth}px`;
+      target.style.paddingRight = scrollbarWidth + "px";
     }
     target.style.overflowY = "hidden";
 
@@ -48,19 +48,11 @@ const ScrollLock = createClass({
       ); // 3.
     }
   },
-
-  preventTouchMove(e) {
-    if (this.props.except.classes.find(x => x === e.target.className)) {
-      return;
-    }
-    e.preventDefault();
-  },
-
-  componentWillUnmount() {
+  componentWillUnmount: function() {
     if (!canUseDom()) return;
 
-    const scrollTarget = this.props.scrollTarget;
-    const target = document.body;
+    var scrollTarget = this.props.scrollTarget;
+    var target = document.body;
 
     if (this.props.preventContentJumping) {
       target.style.paddingRight = "";
@@ -86,7 +78,17 @@ const ScrollLock = createClass({
       );
     }
   },
-  render() {
+  preventTouchMove(e) {
+    if (
+      this.props.except.classes.find(function(x) {
+        return x === e.target.className;
+      })
+    ) {
+      return;
+    }
+    e.preventDefault();
+  },
+  render: function() {
     return null;
   }
 });
@@ -100,9 +102,9 @@ function allowTouchMove(e) {
 }
 
 function preventInertiaScroll() {
-  const top = this.scrollTop;
-  const totalScroll = this.scrollHeight;
-  const currentScroll = top + this.offsetHeight;
+  var top = this.scrollTop;
+  var totalScroll = this.scrollHeight;
+  var currentScroll = top + this.offsetHeight;
 
   if (top === 0) {
     this.scrollTop = 1;
