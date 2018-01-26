@@ -78,7 +78,7 @@ var ScrollLock = createClass({
       );
     }
   },
-  preventTouchMove(e) {
+  preventTouchMove: function(e) {
     if (  this.props.except && this.props.except.classes.indexOf(e.target.className) >= 0 ) {
       return;
     }
